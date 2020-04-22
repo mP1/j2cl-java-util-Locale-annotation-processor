@@ -10,25 +10,15 @@
 
 An annotation processor that generates the `LocaleProvider` used by the emulated `java.util.Locale` in [j2cl-java-util-Locale](https://travis-ci.com/mP1/j2cl-java-util-Locale)]
 
+To select which locales are included set the `walkingkooka.j2cl.java.util.Locale` annotation processor argument.
 
+```xml
+-Awalkingkooka.j2cl.java.util.Locale=EN*
+```
 
-## Locale selection (System property)
+This selects all locales starting with `EN`.
 
-The locales must be selected by
-setting the system property `walkingkooka.java-util-Locale` with a comma separated list of desired locales with
-trailing wildcard support.
-
-Some examples
-
-- `*` All locales
-- `EN` Only includes the `EN` locale without including `EN-US` or `EN-GB`.
-- `EN-*` Includes all locales beginning with `EN`.
-- `EN-*,FR-*` Include all English and French locales.
-
-
-
-The classes included in this project should be considered internal, and this project should only be referenced as a dependency
-by .[j2cl-java-util-Locale](https://travis-ci.com/mP1/j2cl-java-util-Locale)]
+For more details [click here](https://github.com/mP1/j2cl-locale)
 
 
 
