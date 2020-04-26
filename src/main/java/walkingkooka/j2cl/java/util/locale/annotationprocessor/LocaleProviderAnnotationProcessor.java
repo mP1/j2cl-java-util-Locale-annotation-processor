@@ -29,7 +29,8 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
     }
 
     @Override
-    protected String generateTemplateMergeReplacement(Set<String> languageTags) {
+    protected String generateTemplateMergeReplacement(final Set<String> languageTags,
+                                                      final String filter) {
         return LocaleProviderTool.generateMethod(languageTags);
     }
 
