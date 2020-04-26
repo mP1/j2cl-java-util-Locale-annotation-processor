@@ -108,7 +108,7 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>META-INF/services/javax.annotation.processing.Processor</include>
-                    <include>**/*.txt</include>
+                    <include>**/*</include>
                 </includes>
             </resource>
         </resources>
