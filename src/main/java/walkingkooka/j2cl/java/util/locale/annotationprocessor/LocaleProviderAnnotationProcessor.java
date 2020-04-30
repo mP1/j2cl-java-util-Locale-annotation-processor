@@ -24,11 +24,6 @@ import java.util.Set;
 public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotationProcessor {
 
     @Override
-    protected String annotationType() {
-        return LocaleProviderAnnotation.class.getName();
-    }
-
-    @Override
     protected String generateTemplateMergeReplacement(final Set<String> languageTags,
                                                       final String filter) {
         return LocaleProviderTool.generateMethod(languageTags);
