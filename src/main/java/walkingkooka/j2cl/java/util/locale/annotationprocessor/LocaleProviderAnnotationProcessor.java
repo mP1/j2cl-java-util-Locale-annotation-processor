@@ -36,6 +36,6 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
 
     @Override
     protected String generatedClassName() {
-        return "walkingkooka.j2cl.java.util.LocaleProvider";
+        return "walkingkooka.j2cl.java.util.locale.LocaleProvider";
     }
 }
