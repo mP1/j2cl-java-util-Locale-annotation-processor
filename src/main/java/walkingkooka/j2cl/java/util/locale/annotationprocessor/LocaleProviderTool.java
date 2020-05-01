@@ -57,13 +57,16 @@ public final class LocaleProviderTool {
     }
 
     private void print(final Set<String> languageTags) {
-        final String encoded = encode(languageTags, this.printer);
+        this.printer.indent();
+        {
+            final String encoded = encode(languageTags, this.printer);
 
-        this.line("public final static java.util.List<" + WalkingkookaLanguageTag.class.getName() + ">");
-        this.line("  ALL=" + WalkingkookaLanguageTag.class.getName() + ".decode(");
-        this.line("    " + CharSequences.quote(encoded));
-        this.line("  );");
-
+            this.line("public final static java.util.List<" + WalkingkookaLanguageTag.class.getName() + ">");
+            this.line("  ALL=" + WalkingkookaLanguageTag.class.getName() + ".decode(");
+            this.line("    " + CharSequences.quote(encoded));
+            this.line("  );");
+        }
+        this.printer.outdent();
         this.printer.flush();
     }
 

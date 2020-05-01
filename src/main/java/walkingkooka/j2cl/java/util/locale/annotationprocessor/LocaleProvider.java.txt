@@ -19,5 +19,6 @@ package walkingkooka.j2cl.java.util.locale;
 
 public final class LocaleProvider {
 
-    $ALL
+$ALL
+
 }
