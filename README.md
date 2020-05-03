@@ -21,6 +21,11 @@ This selects all locales starting with `EN`.
 For more details [click here](https://github.com/mP1/j2cl-locale)
 
 
+## Runtime features.
+
+See [j2cl-java-util-Locale](https://travis-ci.com/mP1/j2cl-java-util-Locale) for a more comprehensive summary.
+
+
 
 ## Getting the source
 
