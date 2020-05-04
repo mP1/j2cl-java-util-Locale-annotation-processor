@@ -19,6 +19,10 @@ package walkingkooka.j2cl.java.util.locale;
 
 public final class LocaleProvider {
 
-$ALL
+  public final static String ANNOTATION_PROCESSOR_LOCALES_FILTER = $FILTERED_LOCALES;
+
+  public final static String SELECTED_LOCALES = $SELECTED_LOCALES;
+
+$ALL_FIELD
 
 }

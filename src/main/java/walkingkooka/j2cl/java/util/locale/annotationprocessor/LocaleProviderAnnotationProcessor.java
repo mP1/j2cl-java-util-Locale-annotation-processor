@@ -31,7 +31,7 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
 
     @Override
     protected String placeholder() {
-        return "$ALL";
+        return "$ALL_FIELD";
     }
 
     @Override
