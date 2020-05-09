@@ -17,20 +17,17 @@
 
 package walkingkooka.j2cl.java.util.locale.annotationprocessor;
 
-import walkingkooka.collect.list.Lists;
+import walkingkooka.j2cl.java.io.string.StringDataInputDataOutput;
 import walkingkooka.j2cl.locale.WalkingkookaLanguageTag;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
-import java.util.List;
+import java.io.DataOutput;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This tool prints to sysout, that prints a List holding all {@link WalkingkookaLanguageTag} with their data queried from the JDK classes.
@@ -38,54 +35,33 @@ import java.util.stream.Stream;
 public final class LocaleProviderTool {
 
     public static void main(final String[] args) throws Exception {
-        new LocaleProviderTool(Printers.sysOut().indenting(Indentation.with("  ")))
-            .print(WalkingkookaLanguageTag.all("*"));
-    }
-
-    static String generateMethod(final Set<String> languageTags) {
-        final StringBuilder output = new StringBuilder();
-        try (final Printer printer = Printers.stringBuilder(output, LineEnding.SYSTEM)) {
-            new LocaleProviderTool(printer.indenting(Indentation.with("  "))).print(languageTags);
+        try (final Printer printer = Printers.sysOut()) {
+            final StringBuilder data = new StringBuilder();
+            generate(WalkingkookaLanguageTag.all("EN"),
+                    StringDataInputDataOutput.output(data::append),
+                    LocaleProviderAnnotationProcessor.comments(printer));
+            printer.print(CharSequences.quoteAndEscape(data));
+            printer.flush();
         }
-
-        return output.toString();
     }
 
-    private LocaleProviderTool(final IndentingPrinter printer) {
+    static void generate(final Set<String> languageTags,
+                         final DataOutput data,
+                         final IndentingPrinter comments) throws Exception {
+        data.writeInt(languageTags.size() + (languageTags.contains("nn-NO") ? 1 : 0));
+
+        for (final String tag : languageTags) {
+            generate0(tag, data, comments);
+        }
+    }
+
+    private LocaleProviderTool() {
         super();
-        this.printer = printer;
     }
 
-    private void print(final Set<String> languageTags) {
-        this.printer.indent();
-        {
-            final String encoded = encode(languageTags, this.printer);
-
-            this.line("public final static java.util.List<" + WalkingkookaLanguageTag.class.getName() + ">");
-            this.line("  ALL=" + WalkingkookaLanguageTag.class.getName() + ".decode(");
-            this.line("    " + CharSequences.quote(encoded));
-            this.line("  );");
-        }
-        this.printer.outdent();
-        this.printer.flush();
-    }
-
-    // @VisibleForTesting
-    static String encode(final Set<String> languageTags, final IndentingPrinter comments) {
-        return languageTags.stream()
-                .flatMap(e -> encode0(e, comments))
-                .collect(Collectors.joining(WalkingkookaLanguageTag.LOCALE_SEPARATOR));
-    }
-
-    private void line(final CharSequence line) {
-        this.printer.lineStart();
-        this.printer.print(line);
-    }
-
-    private final IndentingPrinter printer;
-
-    private static Stream<String> encode0(final String languageTag,
-                                          final IndentingPrinter comments) {
+    private static void generate0(final String languageTag,
+                                  final DataOutput data,
+                                  final IndentingPrinter comments) throws IOException {
         final Locale locale = Locale.forLanguageTag(languageTag);
 
         final String language = locale.getLanguage();
@@ -110,37 +86,29 @@ public final class LocaleProviderTool {
             encoded = languageTag;
         }
 
-        final List<String> encodeds = Lists.array();
-
-        comments.lineStart();
-        comments.print("// " +
+        comments.print("" +
                 pad(languageTag) +
                 pad("language=" + language) +
                 pad("country=" + country) +
                 pad("variant=" + variant) +
                 pad("script=" + script) +
                 "encoded=" + encoded);
+        comments.print(comments.lineEnding());
 
-        encodeds.add(encoded);
+        data.writeUTF(encoded);
 
         if (languageTag.equals("nn-NO")) {
-            comments.lineStart();
-            comments.print("// " +
+            comments.print("" +
                     pad(languageTag) +
                     pad("language=nn-NO") +
                     pad("country=no") +
                     pad("variant=NO") +
                     pad("script=NY") +
                     "encoded=" + encoded);
+            comments.print(comments.lineEnding());
 
-            encodeds.add("nn-NO" + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
-                    "nn-NO" + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
-                    "no" + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
-                    "NO" + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
-                    "NY");
+            data.writeUTF("nn-NO,nn-NO,no,NO,NY");
         }
-
-        return encodeds.stream();
     }
 
     private static CharSequence pad(final String text) {

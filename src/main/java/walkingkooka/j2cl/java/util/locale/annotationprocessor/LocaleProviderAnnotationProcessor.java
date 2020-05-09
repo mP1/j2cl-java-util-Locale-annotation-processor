@@ -18,20 +18,19 @@
 package walkingkooka.j2cl.java.util.locale.annotationprocessor;
 
 import walkingkooka.j2cl.locale.annotationprocessor.LocaleAwareAnnotationProcessor;
+import walkingkooka.text.printer.IndentingPrinter;
 
+import java.io.DataOutput;
 import java.util.Set;
 
 public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotationProcessor {
 
     @Override
-    protected String generateTemplateMergeReplacement(final Set<String> languageTags,
-                                                      final String filter) {
-        return LocaleProviderTool.generateMethod(languageTags);
-    }
-
-    @Override
-    protected String placeholder() {
-        return "$ALL_FIELD";
+    protected void generate(final Set<String> languageTags,
+                            final String filter,
+                            final DataOutput data,
+                            final IndentingPrinter comments) throws Exception {
+        LocaleProviderTool.generate(languageTags, data, comments);
     }
 
     @Override
