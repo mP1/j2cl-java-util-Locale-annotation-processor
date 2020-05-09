@@ -23,6 +23,7 @@ public final class LocaleProvider {
 
   public final static String SELECTED_LOCALES = $SELECTED_LOCALES;
 
-$ALL_FIELD
+$DATA_COMMENT
 
+  public final static String DATA = $DATA;
 }
