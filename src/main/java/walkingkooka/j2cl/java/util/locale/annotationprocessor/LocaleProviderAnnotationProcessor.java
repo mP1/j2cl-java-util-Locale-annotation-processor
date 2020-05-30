@@ -33,11 +33,12 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
     }
 
     @Override
-    protected void generate(final Set<String> languageTags,
-                            final Function<String, String> arguments,
-                            final DataOutput data,
-                            final IndentingPrinter comments) throws Exception {
-        LocaleProviderTool.generate(languageTags, data, comments);
+    protected String generate(final String filter,
+                              final Set<String> languageTags,
+                              final Function<String, String> arguments,
+                              final DataOutput data,
+                              final IndentingPrinter comments) throws Exception {
+        return LocaleProviderTool.generate(filter, languageTags, data, comments);
     }
 
     @Override

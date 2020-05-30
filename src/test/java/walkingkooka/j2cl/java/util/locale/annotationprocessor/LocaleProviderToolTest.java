@@ -69,7 +69,8 @@ public final class LocaleProviderToolTest implements ClassTesting<LocaleProvider
         final LineEnding eol = LineEnding.NL;
 
         try (final Printer printer = Printers.stringBuilder(comments, eol)) {
-            LocaleProviderTool.generate(WalkingkookaLanguageTag.all(filter),
+            LocaleProviderTool.generate(filter,
+                    WalkingkookaLanguageTag.all(filter),
                     StringDataInputDataOutput.output(data::append),
                     LocaleProviderAnnotationProcessor.comments(printer));
             printer.print(eol);

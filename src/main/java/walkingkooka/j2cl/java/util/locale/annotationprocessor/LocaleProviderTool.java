@@ -17,9 +17,9 @@
 
 package walkingkooka.j2cl.java.util.locale.annotationprocessor;
 
-import walkingkooka.collect.map.Maps;
 import walkingkooka.j2cl.java.io.string.StringDataInputDataOutput;
 import walkingkooka.j2cl.locale.WalkingkookaLanguageTag;
+import walkingkooka.j2cl.locale.annotationprocessor.LocaleAwareAnnotationProcessorTool;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printer;
@@ -29,7 +29,6 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Set;
-import java.util.function.Function;
 
 /**
  * This tool prints to sysout, that prints a List holding all {@link WalkingkookaLanguageTag} with their data queried from the JDK classes.
@@ -39,7 +38,8 @@ public final class LocaleProviderTool {
     public static void main(final String[] args) throws Exception {
         try (final Printer printer = Printers.sysOut()) {
             final StringBuilder data = new StringBuilder();
-            generate(WalkingkookaLanguageTag.all("EN"),
+            generate("EN",
+                    WalkingkookaLanguageTag.all("EN"),
                     StringDataInputDataOutput.output(data::append),
                     LocaleProviderAnnotationProcessor.comments(printer));
             printer.print(CharSequences.quoteAndEscape(data));
@@ -47,18 +47,19 @@ public final class LocaleProviderTool {
         }
     }
 
-    static void generate(final Set<String> languageTags,
-                         final DataOutput data,
-                         final IndentingPrinter comments) throws Exception {
+    static String generate(final String filter,
+                           final Set<String> languageTags,
+                           final DataOutput data,
+                           final IndentingPrinter comments) throws Exception {
         data.writeInt(languageTags.size() + (languageTags.contains("nn-NO") ? 1 : 0));
 
         for (final String tag : languageTags) {
             generate0(tag, data, comments);
         }
-    }
 
-    private LocaleProviderTool() {
-        super();
+        return LocaleAwareAnnotationProcessorTool.extractSummary(languageTags.size(),
+                "Locale",
+                filter);
     }
 
     private static void generate0(final String languageTag,
