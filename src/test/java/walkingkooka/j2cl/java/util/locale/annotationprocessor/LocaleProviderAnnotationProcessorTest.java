@@ -21,13 +21,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class LocaleProviderAnnotationProcessorTest implements ClassTesting<LocaleProviderAnnotationProcessor> {
 
     @Test
     public void testDefaultPublicConstructor() throws Exception {
-        assertEquals(JavaVisibility.PUBLIC, JavaVisibility.of(LocaleProviderAnnotationProcessor.class.getConstructor()));
+        this.checkEquals(
+                JavaVisibility.PUBLIC,
+                JavaVisibility.of(LocaleProviderAnnotationProcessor.class.getConstructor())
+        );
     }
 
     @Override
