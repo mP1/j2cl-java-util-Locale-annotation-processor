@@ -26,8 +26,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.Printer;
 import walkingkooka.text.printer.Printers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class LocaleProviderToolTest implements ClassTesting<LocaleProviderTool> {
 
     @Test
@@ -77,7 +75,7 @@ public final class LocaleProviderToolTest implements ClassTesting<LocaleProvider
             printer.flush();
             printer.close();
 
-            assertEquals(expected, "" + comments + eol + data);
+            this.checkEquals(expected, "" + comments + eol + data);
         }
     }
 
