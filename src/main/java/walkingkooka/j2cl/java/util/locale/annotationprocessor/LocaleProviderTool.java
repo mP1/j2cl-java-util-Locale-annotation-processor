@@ -78,10 +78,7 @@ public final class LocaleProviderTool {
                 variant + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
                 script;
 
-        for (; ; ) {
-            if (false == encoded.endsWith(WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR)) {
-                break;
-            }
+        while (encoded.endsWith(WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR)) {
             encoded = CharSequences.subSequence(encoded, 0, -1).toString();
         }
 
