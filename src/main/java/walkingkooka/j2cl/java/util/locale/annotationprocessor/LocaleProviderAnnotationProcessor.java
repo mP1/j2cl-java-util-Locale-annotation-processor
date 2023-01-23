@@ -40,9 +40,4 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
                               final IndentingPrinter comments) throws Exception {
         return LocaleProviderTool.generate(filter, languageTags, data, comments);
     }
-
-    @Override
-    protected String generatedClassName() {
-        return "walkingkooka.j2cl.java.util.locale.generated.LocaleProvider";
-    }
 }
