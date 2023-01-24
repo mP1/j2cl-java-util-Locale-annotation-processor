@@ -8,17 +8,22 @@
 
 # j2cl java-util-Locale-annotation-processor
 
-An annotation processor that generates the `LocaleProvider` used by the emulated `java.util.Locale` in [j2cl-java-util-Locale](https://travis-ci.com/mP1/j2cl-java-util-Locale)]
+An annotation processor that generates the `LocaleProvider` used by the emulated `java.util.Locale`.
 
-To select which locales are included set the `walkingkooka.j2cl.java.util.Locale` annotation processor argument.
+Several options are required to select the default and available locales.
 
 ```xml
--Awalkingkooka.j2cl.java.util.Locale=EN*
+<compilerArgs>
+    <arg>-Awalkingkooka.j2cl.java.util.Locale=EN-*</arg>
+    <arg>-Awalkingkooka.j2cl.java.util.Locale.DEFAULT=en-AU</arg>
+    <arg>-Awalkingkooka.j2cl.locale.Logging=SLASH_SLASH_COMMENTS</arg>
+</compilerArgs>
 ```
 
-This selects all locales starting with `EN`.
+The above selects all English locales along with a default locale of Australian English. 
 
 For more details [click here](https://github.com/mP1/j2cl-locale)
+
 
 
 ## Runtime features.
