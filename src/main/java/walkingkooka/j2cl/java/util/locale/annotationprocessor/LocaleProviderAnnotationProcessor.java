@@ -19,18 +19,43 @@ package walkingkooka.j2cl.java.util.locale.annotationprocessor;
 
 import walkingkooka.collect.set.Sets;
 import walkingkooka.j2cl.locale.annotationprocessor.LocaleAwareAnnotationProcessor;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 
 import java.io.DataOutput;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotationProcessor {
 
     @Override
     protected Set<String> additionalArguments() {
-        return Sets.empty();
+        return Sets.of(
+                DEFAULT_LOCALE
+        );
     }
+
+    @Override
+    protected Optional<String> defaultValue(final Set<String> locales,
+                                            final Function<String, String> arguments) {
+        final String defaultLocale = arguments.apply(DEFAULT_LOCALE);
+        if (false == locales.contains(defaultLocale)) {
+            throw new IllegalArgumentException(
+                    "Default Locale " +
+                            CharSequences.quoteAndEscape(defaultLocale) +
+                            " missing from selected locales " +
+                            CharSequences.quoteAndEscape(
+                                    locales.stream()
+                                            .collect(Collectors.joining(","))
+                            )
+            );
+        }
+        return Optional.of(defaultLocale);
+    }
+
+    private final static String DEFAULT_LOCALE = "walkingkooka.j2cl.java.util.Locale.DEFAULT";
 
     @Override
     protected String generate(final String filter,
