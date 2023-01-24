@@ -23,6 +23,8 @@ public final class LocaleProvider {
 
   public final static String SELECTED_LOCALES = preventInlining($SELECTED_LOCALES);
 
+  public final static String DEFAULT_LOCALE = preventInlining($DEFAULT);
+
 $DATA_COMMENT
 
   public final static String DATA = preventInlining($DATA);
