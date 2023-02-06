@@ -23,6 +23,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 
 import java.io.DataOutput;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -41,18 +42,35 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
     protected Optional<String> defaultValue(final Set<String> locales,
                                             final Function<String, String> arguments) {
         final String defaultLocale = arguments.apply(DEFAULT_LOCALE);
-        if (false == locales.contains(defaultLocale)) {
+
+        failIdDefaultLocaleMissing(
+                defaultLocale,
+                locales
+        );
+
+        return Optional.of(defaultLocale);
+    }
+
+    static void failIdDefaultLocaleMissing(final String defaultLocale,
+                                           final Set<String> locales) {
+        if (false == isPresent(Locale.forLanguageTag(defaultLocale), locales)) {
             throw new IllegalArgumentException(
                     "Default Locale " +
                             CharSequences.quoteAndEscape(defaultLocale) +
                             " missing from selected locales " +
                             CharSequences.quoteAndEscape(
                                     locales.stream()
-                                            .collect(Collectors.joining(","))
+                                            .collect(Collectors.joining(", "))
                             )
             );
         }
-        return Optional.of(defaultLocale);
+    }
+
+    private static boolean isPresent(final Locale defaultLocale,
+                                     final Set<String> locales) {
+        return locales.stream()
+                .map(Locale::forLanguageTag)
+                .anyMatch(defaultLocale::equals);
     }
 
     private final static String DEFAULT_LOCALE = "walkingkooka.j2cl.java.util.Locale.DEFAULT";
