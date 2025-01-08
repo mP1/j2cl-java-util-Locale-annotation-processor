@@ -29,40 +29,40 @@ public final class LocaleProviderAnnotationProcessorTest implements ClassTesting
     @Test
     public void testDefaultPublicConstructor() throws Exception {
         this.checkEquals(
-                JavaVisibility.PUBLIC,
-                JavaVisibility.of(LocaleProviderAnnotationProcessor.class.getConstructor())
+            JavaVisibility.PUBLIC,
+            JavaVisibility.of(LocaleProviderAnnotationProcessor.class.getConstructor())
         );
     }
 
     @Test
     public void testFailIdDefaultLocaleMissingFails() {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> LocaleProviderAnnotationProcessor.failIdDefaultLocaleMissing(
-                        "EN-AU",
-                        Sets.of("FR", "EN-GB")
-                )
+            IllegalArgumentException.class,
+            () -> LocaleProviderAnnotationProcessor.failIdDefaultLocaleMissing(
+                "EN-AU",
+                Sets.of("FR", "EN-GB")
+            )
         );
 
         this.checkEquals(
-                "Default Locale \"EN-AU\" missing from selected locales \"FR, EN-GB\"",
-                thrown.getMessage()
+            "Default Locale \"EN-AU\" missing from selected locales \"FR, EN-GB\"",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testFailIdDefaultLocaleMissingDifferentCase() {
         LocaleProviderAnnotationProcessor.failIdDefaultLocaleMissing(
-                "EN-AU",
-                Sets.of("en-AU")
+            "EN-AU",
+            Sets.of("en-AU")
         );
     }
 
     @Test
     public void testFailIdDefaultLocaleMissingSameCase() {
         LocaleProviderAnnotationProcessor.failIdDefaultLocaleMissing(
-                "EN-AU",
-                Sets.of("en-AU")
+            "EN-AU",
+            Sets.of("en-AU")
         );
     }
 

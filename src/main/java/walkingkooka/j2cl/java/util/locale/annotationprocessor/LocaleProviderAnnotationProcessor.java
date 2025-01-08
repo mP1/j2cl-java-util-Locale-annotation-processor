@@ -34,7 +34,7 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
     @Override
     protected Set<String> additionalArguments() {
         return Sets.of(
-                DEFAULT_LOCALE
+            DEFAULT_LOCALE
         );
     }
 
@@ -44,8 +44,8 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
         final String defaultLocale = arguments.apply(DEFAULT_LOCALE);
 
         failIdDefaultLocaleMissing(
-                defaultLocale,
-                locales
+            defaultLocale,
+            locales
         );
 
         return Optional.of(defaultLocale);
@@ -55,13 +55,13 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
                                            final Set<String> locales) {
         if (false == isPresent(Locale.forLanguageTag(defaultLocale), locales)) {
             throw new IllegalArgumentException(
-                    "Default Locale " +
-                            CharSequences.quoteAndEscape(defaultLocale) +
-                            " missing from selected locales " +
-                            CharSequences.quoteAndEscape(
-                                    locales.stream()
-                                            .collect(Collectors.joining(", "))
-                            )
+                "Default Locale " +
+                    CharSequences.quoteAndEscape(defaultLocale) +
+                    " missing from selected locales " +
+                    CharSequences.quoteAndEscape(
+                        locales.stream()
+                            .collect(Collectors.joining(", "))
+                    )
             );
         }
     }
@@ -69,8 +69,8 @@ public final class LocaleProviderAnnotationProcessor extends LocaleAwareAnnotati
     private static boolean isPresent(final Locale defaultLocale,
                                      final Set<String> locales) {
         return locales.stream()
-                .map(Locale::forLanguageTag)
-                .anyMatch(defaultLocale::equals);
+            .map(Locale::forLanguageTag)
+            .anyMatch(defaultLocale::equals);
     }
 
     private final static String DEFAULT_LOCALE = "walkingkooka.j2cl.java.util.Locale.DEFAULT";
