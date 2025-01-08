@@ -31,34 +31,34 @@ public final class LocaleProviderToolTest implements ClassTesting<LocaleProvider
     @Test
     public void testEncodeEN() throws Exception {
         this.generateAndCheck("EN",
-                "// en                  language=en         country=            variant=            script=             encoded=en\n" +
-                        "\n" +
-                        "\n" +
-                        "1,en");
+            "// en                  language=en         country=            variant=            script=             encoded=en\n" +
+                "\n" +
+                "\n" +
+                "1,en");
     }
 
     @Test
     public void testEncodeENAU() throws Exception {
         this.generateAndCheck("EN-AU",
-                "// en-AU               language=en         country=AU          variant=            script=             encoded=en-AU,en,AU\n" +
-                        "\n" +
-                        "\n" +
-                        "1,en-AU\\,en\\,AU");
+            "// en-AU               language=en         country=AU          variant=            script=             encoded=en-AU,en,AU\n" +
+                "\n" +
+                "\n" +
+                "1,en-AU\\,en\\,AU");
     }
 
     @Test
     public void testEncodeDE() throws Exception {
         this.generateAndCheck("DE*",
-                "// de                  language=de         country=            variant=            script=             encoded=de\n" +
-                        "// de-AT               language=de         country=AT          variant=            script=             encoded=de-AT,de,AT\n" +
-                        "// de-BE               language=de         country=BE          variant=            script=             encoded=de-BE,de,BE\n" +
-                        "// de-CH               language=de         country=CH          variant=            script=             encoded=de-CH,de,CH\n" +
-                        "// de-DE               language=de         country=DE          variant=            script=             encoded=de-DE,de,DE\n" +
-                        "// de-LI               language=de         country=LI          variant=            script=             encoded=de-LI,de,LI\n" +
-                        "// de-LU               language=de         country=LU          variant=            script=             encoded=de-LU,de,LU\n" +
-                        "\n" +
-                        "\n" +
-                        "7,de,de-AT\\,de\\,AT,de-BE\\,de\\,BE,de-CH\\,de\\,CH,de-DE\\,de\\,DE,de-LI\\,de\\,LI,de-LU\\,de\\,LU");
+            "// de                  language=de         country=            variant=            script=             encoded=de\n" +
+                "// de-AT               language=de         country=AT          variant=            script=             encoded=de-AT,de,AT\n" +
+                "// de-BE               language=de         country=BE          variant=            script=             encoded=de-BE,de,BE\n" +
+                "// de-CH               language=de         country=CH          variant=            script=             encoded=de-CH,de,CH\n" +
+                "// de-DE               language=de         country=DE          variant=            script=             encoded=de-DE,de,DE\n" +
+                "// de-LI               language=de         country=LI          variant=            script=             encoded=de-LI,de,LI\n" +
+                "// de-LU               language=de         country=LU          variant=            script=             encoded=de-LU,de,LU\n" +
+                "\n" +
+                "\n" +
+                "7,de,de-AT\\,de\\,AT,de-BE\\,de\\,BE,de-CH\\,de\\,CH,de-DE\\,de\\,DE,de-LI\\,de\\,LI,de-LU\\,de\\,LU");
     }
 
     private void generateAndCheck(final String filter, final String expected) throws Exception {
@@ -68,9 +68,9 @@ public final class LocaleProviderToolTest implements ClassTesting<LocaleProvider
 
         try (final Printer printer = Printers.stringBuilder(comments, eol)) {
             LocaleProviderTool.generate(filter,
-                    WalkingkookaLanguageTag.all(filter),
-                    StringDataInputDataOutput.output(data::append),
-                    LocaleProviderAnnotationProcessor.comments(printer));
+                WalkingkookaLanguageTag.all(filter),
+                StringDataInputDataOutput.output(data::append),
+                LocaleProviderAnnotationProcessor.comments(printer));
             printer.print(eol);
             printer.flush();
             printer.close();

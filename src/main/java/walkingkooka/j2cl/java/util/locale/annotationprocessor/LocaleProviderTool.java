@@ -39,9 +39,9 @@ public final class LocaleProviderTool {
         try (final Printer printer = Printers.sysOut()) {
             final StringBuilder data = new StringBuilder();
             generate("EN",
-                    WalkingkookaLanguageTag.all("EN"),
-                    StringDataInputDataOutput.output(data::append),
-                    LocaleProviderAnnotationProcessor.comments(printer));
+                WalkingkookaLanguageTag.all("EN"),
+                StringDataInputDataOutput.output(data::append),
+                LocaleProviderAnnotationProcessor.comments(printer));
             printer.print(CharSequences.quoteAndEscape(data));
             printer.flush();
         }
@@ -58,8 +58,8 @@ public final class LocaleProviderTool {
         }
 
         return LocaleAwareAnnotationProcessorTool.extractSummary(languageTags.size(),
-                "Locale",
-                filter);
+            "Locale",
+            filter);
     }
 
     private static void generate0(final String languageTag,
@@ -73,10 +73,10 @@ public final class LocaleProviderTool {
         final String script = locale.getScript();
 
         String encoded = languageTag + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
-                language + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
-                country + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
-                variant + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
-                script;
+            language + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
+            country + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
+            variant + WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR +
+            script;
 
         while (encoded.endsWith(WalkingkookaLanguageTag.LOCALE_COMPONENT_SEPARATOR)) {
             encoded = CharSequences.subSequence(encoded, 0, -1).toString();
@@ -87,24 +87,24 @@ public final class LocaleProviderTool {
         }
 
         comments.print("" +
-                pad(languageTag) +
-                pad("language=" + language) +
-                pad("country=" + country) +
-                pad("variant=" + variant) +
-                pad("script=" + script) +
-                "encoded=" + encoded);
+            pad(languageTag) +
+            pad("language=" + language) +
+            pad("country=" + country) +
+            pad("variant=" + variant) +
+            pad("script=" + script) +
+            "encoded=" + encoded);
         comments.print(comments.lineEnding());
 
         data.writeUTF(encoded);
 
         if (languageTag.equals("nn-NO")) {
             comments.print("" +
-                    pad(languageTag) +
-                    pad("language=nn-NO") +
-                    pad("country=no") +
-                    pad("variant=NO") +
-                    pad("script=NY") +
-                    "encoded=" + encoded);
+                pad(languageTag) +
+                pad("language=nn-NO") +
+                pad("country=no") +
+                pad("variant=NO") +
+                pad("script=NY") +
+                "encoded=" + encoded);
             comments.print(comments.lineEnding());
 
             data.writeUTF("nn-NO,nn-NO,no,NO,NY");
