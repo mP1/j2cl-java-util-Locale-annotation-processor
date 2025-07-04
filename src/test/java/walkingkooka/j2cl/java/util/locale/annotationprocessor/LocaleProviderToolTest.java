@@ -48,17 +48,20 @@ public final class LocaleProviderToolTest implements ClassTesting<LocaleProvider
 
     @Test
     public void testEncodeDE() throws Exception {
-        this.generateAndCheck("DE*",
+        this.generateAndCheck(
+            "DE*",
             "// de                  language=de         country=            variant=            script=             encoded=de\n" +
                 "// de-AT               language=de         country=AT          variant=            script=             encoded=de-AT,de,AT\n" +
                 "// de-BE               language=de         country=BE          variant=            script=             encoded=de-BE,de,BE\n" +
                 "// de-CH               language=de         country=CH          variant=            script=             encoded=de-CH,de,CH\n" +
                 "// de-DE               language=de         country=DE          variant=            script=             encoded=de-DE,de,DE\n" +
+                "// de-IT               language=de         country=IT          variant=            script=             encoded=de-IT,de,IT\n" +
                 "// de-LI               language=de         country=LI          variant=            script=             encoded=de-LI,de,LI\n" +
                 "// de-LU               language=de         country=LU          variant=            script=             encoded=de-LU,de,LU\n" +
                 "\n" +
                 "\n" +
-                "7,de,de-AT\\,de\\,AT,de-BE\\,de\\,BE,de-CH\\,de\\,CH,de-DE\\,de\\,DE,de-LI\\,de\\,LI,de-LU\\,de\\,LU");
+                "8,de,de-AT\\,de\\,AT,de-BE\\,de\\,BE,de-CH\\,de\\,CH,de-DE\\,de\\,DE,de-IT\\,de\\,IT,de-LI\\,de\\,LI,de-LU\\,de\\,LU"
+        );
     }
 
     private void generateAndCheck(final String filter, final String expected) throws Exception {
